@@ -9,7 +9,6 @@ export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   function handleAddTask(newTaskTitle: string) {
-
     const data = {
       id: tasks.length + 1,
       title: newTaskTitle,
@@ -37,6 +36,13 @@ export function Home() {
     //TODO - remove task from state
   }
 
+  function handleEditTask(id: number, newTaskTitle: string) {
+    setTasks(oldState => oldState.map(task => {
+      task.id ? task.title = newTaskTitle : null;
+      return task;
+    }))
+  }
+
   return (
     <View style={styles.container}>
       <Header tasksCounter={tasks.length} />
@@ -47,6 +53,7 @@ export function Home() {
         tasks={tasks} 
         toggleTaskDone={handleToggleTaskDone}
         removeTask={handleRemoveTask} 
+        editTask={handleEditTask}
       />
     </View>
   )
